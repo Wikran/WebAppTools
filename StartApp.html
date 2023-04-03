@@ -1,0 +1,1653 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<meta charset="utf-8" />-->
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>LWT Application with API</title>
+    <style>
+        body {
+            /*background-image: linear-gradient(to left top, #7fa0c6, #94afcf, #a8bed7, #bdcee0, #d2dde9, #d2dde9, #d2dde9, #d2dde9, #bdcee0, #a8bed7, #94afcf, #7fa0c6);*/
+            background: linear-gradient(to top, #7fa0c6, #94afcf, #a8bed7, #bdcee0, #d2dde9, #d2dde9, #d2dde9, #d2dde9, #bdcee0, #a8bed7, #94afcf, #7fa0c6);
+            background-attachment: fixed;
+        }
+
+        td,
+        p,
+        .xinput {
+            font: 12px tahoma;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        span {
+            width: 1%;
+            padding-right: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: left;
+            position: relative;
+        }
+
+        .td {
+            border: solid 0px #DDD !important;
+            padding: 0 !important;
+        }
+
+        .tb {
+            border: solid 0px #DDD !important;
+            padding: 0 !important;
+        }
+
+        th {
+            font-weight: bold;
+            color: White;
+            background-color: #5D7B9D;
+            height: 24px;
+        }
+
+        .th-H {
+            position: sticky;
+            top: 0;
+            font: 11px tahoma;
+            font-weight: bold;
+            /* Don't forget this, required for the stickiness */
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+            white-space: nowrap;
+            word-wrap: break-word;
+            z-index: 99981;
+        }
+
+        .th-F {
+            position: sticky;
+            font: 11px tahoma;
+            font-weight: bold;
+            background-color: #8fa4bd !important;
+            /* Don't forget this, required for the stickiness */
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+            white-space: nowrap;
+            word-wrap: break-word;
+            z-index: 99981;
+            color: #4b6481;
+        }
+
+        .th-C {
+            position: sticky;
+            border: solid 1px #DDD !important;
+            position: -webkit-sticky;
+            left: 0;
+            box-shadow: 0 0px 2px -1px rgba(0, 0, 0, 0.4);
+            border-top-width: 1px;
+            /*only relevant for first row*/
+            z-index: 99980;
+            /*compensate for top border*/
+            margin-top: -1px;
+        }
+
+        .th-HC {
+            z-index: 99982 !important;
+        }
+
+        .th-H-pop {
+            position: sticky;
+            top: 0px;
+            font: 11px tahoma;
+            font-weight: bold;
+            /* Don't forget this, required for the stickiness */
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+            white-space: nowrap;
+            word-wrap: break-word;
+            z-index: 99980;
+        }
+
+        table {
+            position: relative;
+            background-color: #F8FBFD;
+            /* overflow-x: auto;
+            overflow-y: auto;*/
+        }
+
+        select {
+            height: 22px;
+            width: 200px;
+            font: 15px tahoma;
+        }
+
+        /*    p {
+            margin-top: 0px;
+        }*/
+
+        .pH {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font: 11px tahoma;
+            font-weight: bold;
+            color: midnightblue;
+            cursor: pointer;
+        }
+
+        .DataValueTb {
+            white-space: nowrap;
+        }
+
+
+        .DataValueTa {
+            overflow: hidden;
+        }
+
+        .DataValueTa, .DataValueTb {
+            font: 12px tahoma;
+            border: none;
+            border-color: transparent;
+            display: table-cell;
+            width: 100%;
+            /*width: auto;*/
+            min-width: 8em;
+            height: 100%;
+            display: block;
+        }
+
+            .DataValueTa:focus, .DataValueTb:focus {
+                outline: none;
+            }
+
+        .DataValueTbV {
+            white-space: nowrap;
+            height: 32px;
+        }
+
+        .DataValueTaV {
+            overflow: hidden;
+            height: 47px;
+        }
+
+        .DataValueCkbV {
+            margin-left: 10px;
+        }
+
+        .DataValueTaV, .DataValueTbV {
+            font: 12px tahoma;
+            display: table-cell;
+            width: 95%;
+            /*width: auto;*/
+            margin-left: 10px;
+            display: block;
+            border-color: transparent;
+            background-color: aliceblue;
+            border: 2px solid #e0e6eb;
+            padding: 3px;
+            border-radius: 9px;
+        }
+
+
+        .IndexTb {
+            font: 10px tahoma;
+            border: none;
+            background-color: #e0e6eb;
+            border-color: transparent;
+            display: table-cell;
+            width: 100%;
+            min-width: 1em;
+            height: 100%;
+            /*font-weight: bold;*/
+            /*color: Highlight;*/
+            display: block;
+        }
+
+        .LbV {
+            font: 12px tahoma;
+            overflow: hidden;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #5D7B9D;
+            margin-left: 10px;
+        }
+
+        .DataLink {
+            font: 12px tahoma;
+            /*font-weight: bold;*/
+            text-decoration: underline;
+            color: mediumblue;
+            cursor: pointer;
+        }
+
+        .Lb {
+            font: 12px tahoma;
+            overflow: hidden;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #5D7B9D;
+        }
+
+        #UrlTxt, #txtuname, #txtSubTask {
+            height: 14px;
+            font: 11px tahoma;
+            border: none;
+            border-color: transparent;
+            background-color: #dfe4ec;
+            color: midnightblue;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        #page {
+            display: none;
+        }
+
+        #loading {
+            display: block;
+        }
+
+        /* ----- Menu bar ----------*/
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #e9e9e9;
+        }
+
+            .topnav a {
+                float: left;
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 9.5px 15px;
+                text-decoration: none;
+                font-size: 15px;
+            }
+
+        .openbtn {
+            left: 0;
+            font-size: 17px;
+            cursor: pointer;
+            background-color: #2d4a88;
+            color: white;
+            padding: 6.6px 10px;
+            border: none;
+            float: left;
+            display: block;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .topnav .search-container {
+            float: right;
+        }
+
+        .topnav input[type=text] {
+            padding: 5px;
+            margin-top: 6px;
+            font-size: 15px;
+            border: none;
+        }
+
+        .topnav .search-container button {
+            float: right;
+            padding: 5px 10px;
+            margin-top: 6px;
+            margin-right: 16px;
+            background: #ddd;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .topnav .search-container button:hover {
+                background: #ccc;
+            }
+
+        @media screen and (max-width: 600px) {
+            .topnav .search-container {
+                float: none;
+            }
+
+                .topnav a,
+                .topnav input[type=text],
+                .topnav .search-container button {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                    width: 100%;
+                    margin: 0;
+                    padding: 10px;
+                }
+
+            .topnav input[type=text] {
+                border: 1px solid #ccc;
+            }
+        }
+
+        /* ----- Collapsed Sidepanel ----------*/
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidepanel {
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            height: 150px;
+            top: 67px;
+            left: 0;
+            background-color: #5D7B9D; /*#2d4a88;*/
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 28px;
+            z-index: 99999;
+        }
+
+            .sidepanel a {
+                padding: 8px 8px 8px 20px;
+                text-decoration: none;
+                font: 12px tahoma;
+                color: whitesmoke;
+                display: block;
+                transition: 0.3s;
+            }
+
+        .lbSearch {
+            text-decoration: none;
+            margin-left: 8px;
+            font: 12px tahoma;
+            color: whitesmoke;
+            display: block;
+        }
+
+
+        .sidepanel a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            /* font-size: 36px; */
+            font: 20px tahoma;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        #TaskMenu {
+            text-decoration: none;
+            margin-left: 5px;
+            font: 13px tahoma;
+            color: #2d4a88;
+        }
+
+        /*------- Window Login ------ */
+        /*
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }*/
+
+        /* Full-width input fields */
+        .inputtxt {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        .bt {
+            background-color: #5D7B9D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            padding: 0px 18px;
+            background-color: #f44336;
+            height: 21px;
+            width: 80px;
+        }
+
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 30%;
+            border-radius: 10%;
+        }
+
+        .container {
+            padding: 10px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            /*overflow: auto;*/ /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+            z-index: 99999;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 60%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: red;
+                cursor: pointer;
+            }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+
+        /*  button color */
+        .btn {
+            border: none;
+            background-color: inherit;
+            padding: 8px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        /* Green */
+        .success {
+            color: green;
+        }
+
+            .success:hover {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+        /* Blue */
+        .info {
+            color: dodgerblue;
+        }
+
+            .info:hover {
+                background: #2196F3;
+                color: white;
+            }
+
+        /* Orange */
+        .warning {
+            color: orange;
+        }
+
+            .warning:hover {
+                background: #ff9800;
+                color: white;
+            }
+
+        /* Red */
+        .danger {
+            color: red;
+        }
+
+            .danger:hover {
+                background: #f44336;
+                color: white;
+            }
+
+        /* Gray */
+        .default {
+            color: black;
+        }
+
+            .default:hover {
+                background: #e7e7e7;
+            }
+
+        .FooterContainer {
+            position: sticky;
+            height: 35px;
+            bottom: 0;
+        }
+        /*----------------------*/
+        .tableH {
+            width: 100%;
+            table-layout: fixed;
+            overflow-wrap: break-word;
+            border: none;
+            border-color: transparent;
+            background-color: #F8FBFD;
+        }
+
+        .divH {
+            width: 100%;
+            table-layout: fixed;
+            overflow-wrap: break-word;
+            border: none;
+            border-color: transparent;
+            background-color: #F8FBFD;
+        }
+
+        .LbH {
+            font: 11px tahoma;
+            overflow: hidden;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #5D7B9D;
+        }
+
+        /*select table*/
+        .selected {
+            /*color: darkblue;*/
+            /*padding: 10px;*/
+            border: 2px solid #1c87c9;
+            border-radius: 2px;
+            background-color: #e5e5e5;
+            text-align: center;
+        }
+
+        .circle {
+            background: lightblue;
+            border-radius: 50%;
+            width: 32px;
+            height: 23px;
+            text-align: center !important;
+            overflow: hidden;
+            color: #4b6481;
+            font: 15px tahoma;
+            font-weight: bold;
+            white-space: nowrap;
+            border: 0.5px solid #5D7B9D;
+        }
+
+        .PanelSub {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            top: 15%;
+            left: 10%;
+            z-index: 99995;
+            background-color: #fefefe;
+            /*margin: 5% auto 15% auto;*/ /* 5% from the top, 15% from the bottom and centered */
+            width: 85%;
+            height: 76%;
+            border: 2.5px solid #5D7B9D;
+            resize: both;
+            overflow: auto;
+        }
+
+        .mg_subfrmdtl, .mg_subfrm {
+            padding-top: 1px !important;
+            border: 1px solid #5D7B9D !important;
+            height: 98% !important;
+        }
+
+        .row.MRowV form {
+            height: 100% !important;
+        }
+
+        .mg_frmdtl, .mg_frm {
+            padding-top: 1px !important;
+            border: 1px solid #5D7B9D !important;
+            height: 89vh !important;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column, .columnR, .columnL, .columnH {
+            /*height: 86vh;*/
+            margin: auto;
+            border: 3px solid #5D7B9D !important;
+            overflow-x: auto;
+            overflow-y: auto;
+            padding-top: 0px;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-bottom: 1px;
+        }
+
+        .column {
+            width: 99%;
+        }
+
+        .columnR {
+            float: left;
+            width: 67%;
+            margin-left: 0.5px;
+        }
+
+        .columnL {
+            float: left;
+            width: 32.5%;
+        }
+
+        .columnH {
+            float: left;
+            visibility: hidden;
+        }
+
+        .row {
+            height: 91%;
+            width: 99%;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            margin-left: 8px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="topnav">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
+        <a class="active" href="#home">LWT Application</a>
+        <a href="javascript:void(0);" onclick="logout()"><label id="LInOut">LogIn</label></a>
+        <div class="search-container">
+            <form action="JavaScript:search()">
+                <input type="text" id="searchtxt" placeholder="Search.." name="search">
+                <button type="submit" id="searchbt"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10006;&nbsp;</a>
+        <label class="lbSearch">Search In:</label>
+        <select id="TaskMenu" onchange="SelectRouteKey()">
+            <option></option>
+        </select>
+        <a href="#"></a>
+        <label for="Add" class="lbSearch"><input type="checkbox" id="Add" value="Insert Mode">Insert Mode</label>
+        <label for="Commit" class="lbSearch"><input type="checkbox" id="Commit" value="Auto Commit">Auto Commit</label>
+    </div>
+    <div>
+        <table class="tableH">
+            <tr>
+                <td>
+                    <div align="left">
+                        <label class="LbH">&nbsp;&nbsp;&nbsp;</label>
+                        <button class="circle" onclick="ShowFooter()">&#9874;</button>
+                        <label class="LbH" id="TaskName"></label>
+                    </div>
+                </td>
+                <td>
+                    <div align="right">
+                        <button class="circle" onclick="let Taskid = window[userapp].TaskExecute.TokenKey; Insert(Taskid);">&#10011;</button>
+                        <button class="circle" onclick="let Taskid = window[userapp].TaskExecute.TokenKey; EnableViewScr(Taskid);">&#8633;</button>
+                        <label class="LbH">User:</label>
+                        <input id="txtuname" name="txtuname" style="width:200px !important;" readonly>
+                        <!--<label class="LbH">&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row" id="MRow">
+        <div class="column mg_frm" id="mg_frm" style="display:none"></div>
+        <div class="columnH mg_frmdtl" id="mg_frmdtl" style="display:none"></div>
+    </div>
+    <div id="page"></div>
+    <div id="loading"><h2>loading...</h2></div>
+    <div id="showRawData"></div>
+    <p id="footer" style="position: sticky; bottom: 0; width:100%; text-align: right">
+        <label class="Lb">URL:</label>
+        <input type="url" id="UrlTxt" name="UrlTxt" style="width:40%;" readonly>
+        <label class="Lb">SubTask:</label>
+        <input type="url" id="txtSubTask" name="txtSubTask" style="width:40%;" readonly>
+    </p>
+    <div id="LoginDiv" class="modal">
+        <form id="fLogin" class="modal-content animate" action="JavaScript:void(0);" method="post" onSubmit="xo()">
+            <div class="imgcontainer">
+                <span id="lbClose" onclick="document.getElementById('LoginDiv').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <img src="/images/lwtlogo.jpg" alt="Avatar" class="avatar">
+            </div>
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" id="uname" name="uname" class="inputtxt" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" id="psw" name="psw" class="inputtxt">
+                <button id="btLogin" type="submit" class="bt">Login</button>
+                <!--<label><input type="checkbox" checked="checked" name="remember"> Remember me</label>-->
+            </div>
+            <div class="container" style="background-color:#f1f1f1">
+                <button id="btCancel" type="button" onclick="document.getElementById('LoginDiv').style.display='none'" class="btn danger">Cancel</button>
+                <!--<span class="psw">Forgot <a href="#">password?</a></span>-->
+                <select id="AppMenu" onchange="SelectApp()" style="width:40%;">
+                    <option value="DM" selected>Data Manager</option>
+                    <option value="CBS">CBS</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div name="PanelSub" class="PanelSub" style="display:none">
+        <table name="PanelSubH" class="PanelSubH" width="100%" bgcolor="#284775" style="background-color:#284775 !important ; top: 0; z-index: 99990; position: sticky;">
+            <tbody>
+                <tr>
+                    <td class="td" align="left" height="20">
+                        <span ID="LabelDetailH" style="font: 15px tahoma; font-weight: bold; text-align: left !important; color: #f1f1f1; text-decoration: none;"></span>
+                    </td>
+                    <td class="td" align="right" style="text-align: right !important;" height="20">
+                        <a href="javascript:void(0)" style="font: 20px tahoma; font-weight: bold; text-align: right !important; color: #f1f1f1; text-decoration: none;" name="btclose" class="btclose">&#10006;&nbsp;</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row MRowV" name="MRowV">
+            <div class="column mg_subfrm" name="mg_subfrm"></div>
+            <div class="columnH mg_subfrmdtl" name="mg_subfrmdtl" style="display: none;"></div>
+        </div>
+        <div class="FooterContainer" style="background-color:#f1f1f1;position: sticky; bottom: 0; width: 99%  !important;z-index: 99990;">
+            <button name="btClose" type="button" class="btn danger btClose" style="position: sticky;bottom: 0;">Close</button>
+            <button name="btCircle" class="circle btCircle" style="position: sticky; bottom: 0;">&#8633;</button>
+        </div>
+        <input type="hidden" class="Taskid" name="Taskid" value="">
+    </div>
+    <script type="text/javascript">
+
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                (function main() {
+                    config();
+                    u = localStorage.getItem("mg_u") && atob(localStorage.getItem("mg_u"));
+                    if (!localStorage.getItem('mg_k')) dom.ele_Login.style.display = 'block';
+                    else { tempAlert("Hi," + u + ".  Processing, please wait.", 6000); GenMenuKey(); }
+                    dom.ele_LN.innerHTML = 'LogOut [' + (u ? u : '...') + ']';
+                    dom.ele_uname.value = u + '  [Version:' + window[userapp].AppVer + ']';
+                    window.addEventListener('keydown', function (e) { if (e.altKey == true && e.keyCode == 78) Showkey(app, 'Task'); });
+                    //myLoadEnd();
+                })();
+            }
+        };
+
+        class Task {
+            constructor() { this.Fields = new Array; this.TaskCtl = new Array; this.Data = new Object; };
+            Fields = []; TaskCtl = []; readonly = false; Data = {}; TaskMode = 'query'; elements = {}; newelements = {};
+        };
+        class Field {
+            constructor(name) { this.name = name; }
+            name = ''; description = ''; type = '';
+            maxlength = 0; IS_NULLABLE = ''; readonly = false;
+            disable = false; primary = false; required = false;
+        };
+        class Application {
+            AppVer = '2021.03.16';
+            Menus = {}; Tasks = {}; Models = {}; TaskExecute = {}; SubTasks = new Set();
+            AppToken = '83AD16E2-6AA8-4833-9C28-2175FE7164D3';
+            Accesskey = atob(localStorage.getItem("mg_k"));
+            Name = 'DM';
+            origin = window.location.origin;
+            Route = { "getdata": "DMQ", "getkey": "pythonL", "getctl": "DMCtl", "getmenu": "DMkey", "postdata": "DMP" };
+            domain_url = function domain_url(method = '', taskid = '', acion = '') {
+                let url = (!this.origin || this.origin === 'file://') ? "http://lockthbnk-wikra" : this.origin;
+                if (this.origin === 'http://cbsfront.azurewebsites.net' || this.origin === 'https://cbsfront.azurewebsites.net') url = "https://cbsdev2.locktonwattana.com";
+                url += method && '/' + this.Route[method] + ((method === "getkey") ? '' : '/' + this.Name + '/' + this.Accesskey + (acion ? '/' + acion : '') + (taskid ? '/' + taskid : ''));
+                return url;
+            };
+            Logout = function Logout() { this.Menus = {}; this.Tasks = {}; this.Models = {}; this.TaskExecute = {}; this.Accesskey = ''; }
+            TaskAdd = function TaskAdd(Taskid) { this.Tasks[Taskid] = new Task(); };
+            setTaskAttr = function setTaskAttr(Taskid) { this.Tasks[Taskid].readonly = (this.getAttr(this.Tasks[Taskid], 'Task', 'readonly', false) !== undefined); };
+            ajax = async function (Url, Method, CallBack, Data = null, LimitTimeout = false) {
+                let xhr = new XMLHttpRequest(); if (LimitTimeout) xhr.timeout = 4000;
+                await xhr.open(Method, Url, true); xhr.setRequestHeader("Content-type", "application/json");
+                xhr.onreadystatechange = function () { if (xhr.readyState === 4) if (xhr.status === 200) CallBack(this.responseText); else { alert("Request Status Failed!"); document.body.style.cursor = 'default'; } }
+                xhr.send(Data);
+            };
+            getAttr = function getAttr(Task, FieldName, key, IsObjVal = true) {
+                if (Task === undefined) return;
+                let TaskModel = Task.TaskCtl.TaskModels; if (TaskModel === undefined) return;
+                let FArr = TaskModel.find(x => x.hasOwnProperty(FieldName)); if (FArr === undefined) return;
+                if (IsObjVal) { let FValObj = FArr[FieldName].find(x => x.hasOwnProperty(key)); if (FValObj !== undefined) return FValObj[key]; }
+                else { let FVal = FArr[FieldName].find(x => x == key); if (FVal !== undefined) return FVal; }
+            };
+            setAttr = function setAttr(Task, Field, type, maxlength = 0, IS_NULLABLE = '') {
+                if (Task === undefined) return;
+                Field.type = type ? type : this.getAttr(Task, Field.name, 'type');
+                Field.maxlength = maxlength = 0 ? this.getAttr(Task.Field.name, 'maxlength') : maxlength;
+                Field.description = this.getAttr(Task, Field.name, 'description');
+                Field.IS_NULLABLE = IS_NULLABLE;
+                Field.readonly = (this.getAttr(Task, Field.name, 'readonly', false) !== undefined);
+                Field.readonly = (this.getAttr(Task, 'Task', 'readonly', false) !== undefined); // Task Control.
+                Field.disable = (this.getAttr(Task, Field.name, 'disable', false) !== undefined);
+                let pk = Task.TaskCtl.Primarykeys; if (pk !== undefined) Field.primary = pk.find(e => e == Field.name) !== undefined;
+            };
+            FieldAdd = function FieldAdd(Taskid) {
+                let Task = this.Tasks[Taskid]; let ModelArr = this.Models[Taskid]
+                if (!Task.Fields) Task.Fields = [];
+                let SelectFields = Task.TaskCtl.SelectFields.split(',');
+                SelectFields.forEach((Fkey) => {
+                    let FieldNew = new Field(Fkey);
+                    if (ModelArr !== undefined && ModelArr.length > 0) {
+                        let Model = ModelArr.filter(e => e.COLUMN_NAME.toLowerCase() === Fkey.toLowerCase());
+                        let LENGTH = typeof Model[0].MAXIMUM_LENGTH === 'number' ? Model[0].MAXIMUM_LENGTH : 0;
+                        this.setAttr(Task, FieldNew, Model[0].FIELD_TYPE, LENGTH, Model[0].IS_NULLABLE);
+                    } else this.setAttr(Task, FieldNew, 'string');
+                    (Task.Fields).push(FieldNew);
+                });
+            }
+        }
+        const userapp = 'app';
+        function config() {
+            window[userapp] = new Application();
+            window.num_type = ['decimal', 'double', 'int', 'int32', 'int16', 'float', 'numeric', 'real'];
+            window.dom = {
+                ele_Login: document.getElementById('LoginDiv'),
+                ele_btCancel: document.getElementById('btCancel'),
+                ele_LN: document.getElementById('LInOut'),
+                ele_Url: document.getElementById('UrlTxt'),
+                ele_SubUrl: document.getElementById("txtSubTask"),
+                ele_Add: document.getElementById('Add'),
+                ele_Commit: document.getElementById('Commit'),
+                ele_TaskMenu: document.getElementById('TaskMenu'),
+                ele_AppMenu: document.getElementById('AppMenu'),
+                ele_TaskName: document.getElementById('TaskName'),
+                ele_Searchtxt: document.getElementById('searchtxt'),
+                ele_Searchbt: document.getElementById('searchbt'),
+                ele_uname: document.getElementById("txtuname"),
+                ele_ConFooter: document.getElementById('footer')
+            };
+            (function init() {
+                if (dom.ele_Url.value != null && dom.ele_Url !== undefined) dom.ele_Url.value = window[userapp].domain_url();
+                if (dom.ele_ConFooter !== undefined) dom.ele_ConFooter.style.display = 'none';
+                if (dom.ele_TaskMenu !== undefined) dom.ele_TaskMenu.selectedIndex = 0;
+                if (dom.ele_Searchbt !== undefined) dom.ele_Searchbt.disabled = true;
+                if (dom.ele_Searchtxt !== undefined) dom.ele_Searchtxt.disabled = true;
+                if (dom.ele_Commit !== undefined) dom.ele_Commit.checked = false;
+                if (dom.ele_Add !== undefined) dom.ele_Add.checked = false;
+                if (dom.ele_LN !== undefined) dom.ele_LN.innerHTML = 'Login';
+            })();
+            ActiveForm(document.forms[0], true);
+        }
+
+        function Insert() {
+            let { TaskExecute: { TokenKey } } = window[userapp];
+            let TaskMode = ''; let Task = window[userapp].Tasks[TokenKey];
+            if (Task !== undefined) TaskMode = Task.TaskMode;
+            if (dom.ele_Add.checked) {
+                if (TaskMode !== 'create') ClearForm();
+                BuildTask(TokenKey, '', '', 'create')
+            };
+        };
+        var mainTask = () => { let mt = window[userapp].TaskExecute; if (mt !== undefined) return window[userapp].Tasks[mt.TokenKey]; };
+
+        function BuildTask(Taskid, Url, QueryStr, InitMode, JsData) {
+            myLoad(); let TaskMode = '';
+            let { TaskExecute: { TokenKey } } = window[userapp];
+            let Task = window[userapp].Tasks[TokenKey]; if (Task !== undefined) TaskMode = window[userapp].Tasks[Taskid].TaskMode;
+            // Request Ajax/Get TaskCtl by Taskid.
+            if (!('Taskid' in window[userapp].Tasks) && TaskMode !== 'create') {
+                window[userapp].TaskAdd(Taskid);
+                window[userapp].ajax(window[userapp].domain_url('getctl', Taskid), 'GET', (Sdata) => {
+                    let TaskCtl = JSON.parse(decodeURIComponent(escape(atob(Sdata))));
+                    if (TaskCtl) { window[userapp].Models[Taskid] = TaskCtl.Models; window[userapp].Tasks[Taskid].TaskCtl = TaskCtl.TaskLogic; window[userapp].setTaskAttr(Taskid); }
+                    window[userapp].FieldAdd(Taskid);
+                    AjaxGet();
+                });
+            } else AjaxGet()
+            // Request Ajax/Get Data by Taskid.
+            function AjaxGet() {
+                if (InitMode !== 'create') {
+                    if (!Url) Url = window[userapp].domain_url('getdata', Taskid) + (QueryStr ? '/' + QueryStr : '');
+                    window[userapp].ajax(Url, 'Post', function (jdata) {
+                        JsData = JSON.parse(jdata);
+                        if (JsData) OpenTaskView(Taskid, JsData);
+                        document.body.style.cursor = 'default'
+                        myLoadEnd();
+                    });
+                } else OpenTaskView(Taskid, JsData);
+            }
+
+            // Binding UI Web Form.
+            function OpenTaskView(Taskid, JsData) {
+                CreateUIForm(Taskid);
+                if (TaskMode !== 'create') {
+                    window[userapp].Tasks[Taskid].TaskMode = InitMode;
+                    window[userapp].Tasks[Taskid].Data = JsData;
+                    if (InitMode == 'create') ModelCreate(Taskid);
+                    GridViewRender(Taskid);
+                    dom.ele_Url.value = Url;
+                }
+                if (InitMode == 'create') EnableViewScr(Taskid, true);
+                document.body.style.cursor = 'default'
+                myLoadEnd();
+            }
+            closeNav();
+        }
+
+        function ModelCreate(Taskid) {
+            let Model = window[userapp].Models[Taskid];
+            let Fields = []; ObjArr = []; MyObj = {};
+            Model.forEach((e) => MyObj[(e['COLUMN_NAME'])] = ''); ObjArr.push(MyObj);
+            window[userapp].Tasks[Taskid].Data = ObjArr;
+            for (let key in ObjArr[0]) {
+                let F = new Field(key);
+                if (Model !== undefined && Model.length > 0) {
+                    let M = Model.filter(e => e.COLUMN_NAME.toLowerCase() === key.toLowerCase());
+                    let LENGTH = typeof M[0].MAXIMUM_LENGTH === 'number' ? M[0].MAXIMUM_LENGTH : 0;
+                    window[userapp].setAttr(window[userapp].Tasks[Taskid], F, M[0].FIELD_TYPE, LENGTH, M[0].IS_NULLABLE);
+                } else window[userapp].setAttr(window[userapp].Tasks[Taskid], F, 'string');
+                Fields.push(F);
+            }
+            window[userapp].Tasks[Taskid].Fields = Fields;
+        }
+
+        // When the user clicks anywhere outside of the ele_Login, close it
+        window.onclick = function (event) { if (event.target === dom.ele_btCancel || event.target === lbClose) { dom.ele_Login.style.display = 'none'; window.open(location, '_self').close(); } }
+
+        function Showkey(obj, startwith) {
+            if (obj === undefined) return;
+            let keys = Object.keys(obj);
+            let selectkey = keys.filter(function (key) { return (key.typeof != 'function' && key.startsWith(startwith)) });
+            let Menus = {};
+            for (var i in selectkey) {
+                Menus[selectkey[i]] = obj[selectkey[i]];
+            }; console.log(Menus);
+        }
+
+        function logout() {
+            let Return = confirm('Are you sure you want to Logout?'); if (Return) {
+                ClearForm(); window.localStorage.clear(); window[userapp].Logout();
+                dom.ele_LN.innerHTML = 'Login'; dom.ele_uname.value = '  [Version:' + window[userapp].AppVer + ']'; dom.ele_Login.style.display = 'block';
+            }
+        }
+
+        function Ln(querystr) {
+            tempAlert("Processing, please wait.", 6000);
+            window[userapp].ajax(window[userapp].domain_url('getkey') + '/' + querystr, 'GET', function (jdata) {
+                let kjs = JSON.parse(jdata);
+                if (kjs) {
+                    localStorage.setItem("mg_k", kjs.TokenKey); localStorage.setItem("mg_u", kjs.UserName); localStorage.setItem("mg_r", kjs.KeyRights);
+                    let k = kjs.TokenKey && atob(kjs.TokenKey), u = kjs.UserName && atob(kjs.UserName)
+                    window[userapp].Accesskey = k;
+                    tempAlert("Hi," + atob(kjs.UserName) + ".  Processing, please wait.", 6000);
+                    dom.ele_LN.innerHTML = 'LogOut [' + (u ? u : '...') + ']'; dom.ele_uname.value = u + '  [Version:' + window[userapp].AppVer + ']';
+                    dom.ele_Login.style.display = "none";
+                    window[userapp].Name = dom.ele_AppMenu.value;
+                    GenMenuKey();
+                } else alert("System error, Key not found.");
+                myLoadEnd();
+            });
+        }
+
+        function xo() {
+            let p = document.getElementById('psw').value; Ln(document.getElementById('uname').value + ((p != null && p !== '') ? '/' + p : ''));
+            //ajaxpost('fLogin', 'C54D40CF-4DFA-40BB-BC5C-27D80B651203', 'login', '', true); dom.ele_Login.style.display = 'block';
+        }
+
+        function GenMenuKey() {
+            clearDropDown('TaskMenu');
+            dom.ele_TaskMenu.innerHTML = '';
+            let option = document.createElement('option'); if (option.length >= 0) return;
+            let url = window[userapp].domain_url('getmenu', window[userapp].AppToken);
+            window[userapp].ajax(url, 'GET', function (jdata) {
+                window[userapp].Menus = JSON.parse(atob(jdata));
+                option.text = ''; option.value = '';
+                dom.ele_TaskMenu.add(option);
+                let CatGroup = new Set(window[userapp].Menus.reduce((a, o) => (a.push(o['Category']), a), []));
+                CatGroup.forEach((cat) => {
+                    let optgroup = document.createElement('optgroup'); optgroup.label = cat;
+                    for (let i = 0; i < window[userapp].Menus.length; i++) {
+                        if (window[userapp].Menus[i].Category == cat) {
+                            let option = document.createElement('option');
+                            option.text = window[userapp].Menus[i].Description; option.value = window[userapp].Menus[i].TokenKey;
+                            optgroup.appendChild(option)
+                        }
+                    }
+                    dom.ele_TaskMenu.add(optgroup);
+                });
+                myLoadEnd();
+            });
+        }
+        function clearDropDown(obj) {
+            let select = document.getElementById(obj),
+                length = select.options.length;
+            while (length--) {
+                select.remove(length);
+            }
+        }
+
+        function SelectRouteKey() {
+            ClearForm();
+            window[userapp].TaskExecute = FindObjByToken(window[userapp].Menus, dom.ele_TaskMenu.value);  // ** TaskExecute Active by Taskid.
+            if (window[userapp].TaskExecute && window[userapp].TaskExecute !== undefined) {
+                var { TaskExecute: { Description, TokenKey } } = window[userapp];
+                let Task = window[userapp].Tasks[TokenKey]; if (Task !== undefined) Task.TaskMode = 'query';
+                dom.ele_TaskName.innerHTML = '&nbsp;&nbsp;&nbsp;Menu/Program&nbsp;&#10146;&nbsp;' + Description;
+                ActiveForm(document.forms[0], false);
+            }
+            dom.ele_Searchtxt.value = ''; closeNav();
+        }
+
+        function SelectApp() { window[userapp].Name = dom.ele_AppMenu.value; }
+
+        function search() {
+            let { TaskExecute: { TokenKey } } = window[userapp];
+            let Task = window[userapp].Tasks[TokenKey]; if (Task !== undefined) Task.TaskMode = 'query';
+            ClearForm();
+            BuildTask(TokenKey, '', dom.ele_Searchtxt.value, 'query');
+        }
+        function IsSubTask(Taskid) { return Taskid == window[userapp].TaskExecute.TokenKey ? false : true; };
+        function Taskfrm(IsSub, Taskid) { return (!IsSub ? 'Task_frm_' : 'Task_subfrm_') + Taskid; };
+        function SubstrLast(dataStr, separator) { return dataStr.substring(0, dataStr.lastIndexOf(separator)); }
+
+        function ajaxpost(formid, key, action, Taskid = '', log = false, sql = true) {
+            let jContent = ElementToJsonStr(formid, key, Taskid, action);  //Buile Json string from FormId.
+            if (log) console.log('Request http/post web api controller : ' + jContent);
+            let commit = dom.ele_Commit.checked ? '' : '/false'; // commit db
+            let url = window[userapp].domain_url('postdata', Taskid, action) + (sql ? '/true' : '/false') + commit;  //Test Request/Post Json string To Server API.
+            window[userapp].ajax(url, 'POST', (data) => {
+                let { Tasks: { [Taskid]: { Data, rowid } } } = window[userapp];
+                if (action === 'delete') { Data.splice(rowid - 1, 1); document.getElementById("Task_tb_" + Taskid).deleteRow(rowid); EnableViewScr(Taskid); }
+                console.log('Task_tb_' + Taskid + ' row:' + rowid);
+                console.log(data);
+            }, jContent);
+        }
+
+        function ClearForm() {
+            if (window[userapp].TaskExecute && window[userapp].TaskExecute !== undefined) {
+                let Taskid = window[userapp].TaskExecute.TokenKey;
+                if (window[userapp].Tasks[Taskid] !== undefined) window[userapp].Tasks[Taskid].Data = {};  //Clear Data
+                let elems = document.querySelectorAll("[id^='Task_']")
+                for (let elem of elems) {
+                    if (elem.id.indexOf(Taskid) != -1) elem.remove();
+                }
+            }
+            ClearSubForm();
+        }
+        function ClearSubForm() {
+            if (window[userapp].SubTasks && window[userapp].SubTasks !== undefined) {
+                for (let SubTaskid of window[userapp].SubTasks) {
+                    if (SubTaskid !== undefined && SubTaskid != null && SubTaskid !== '') {
+                        let Selems = document.querySelectorAll("[id^='Task_']")
+                        for (let elem of Selems) {
+                            if (elem.id.indexOf(SubTaskid) != -1) elem.remove();
+                        }
+                        let SPelems = document.querySelectorAll("[id^='PanelSub_']")
+                        for (let elem of SPelems) {
+                            if (elem.id.indexOf(SubTaskid) != -1) elem.remove();
+                            elem.innerHTML = '';
+                        }
+                    }
+                    window[userapp].SubTasks.delete(SubTaskid)
+                }
+                window[userapp].SubTasks.clear();
+            }
+        }
+
+        function ElementToJsonStr(formid, Key = '', Taskid = '', action = '') {
+            const frm = document.getElementById(formid);
+            if (frm == null || !frm) return;
+            let Fields = Taskid == '' ? null : window[userapp].Tasks[Taskid].Fields;
+            let props = {};
+            props['AccessKey'] = Key; props['TokenKey'] = Taskid;
+            //let fd = new FormData();
+            for (let element of frm.elements) {
+                if (element.type !== "submit" && element.name !== '') {
+                    let Ftype;
+                    if (Fields == null || Fields === undefined) Ftype = '';
+                    else Ftype = Fields.find(el => el.name === element.name).type;
+                    switch (Ftype.toLowerCase()) {
+                        case "boolean":
+                        case "bit":
+                            if (element.type == 'checkbox') props[element.name] = element.checked ? 1 : 0;
+                            else props[element.name] = element.value == 'true' ? 1 : 0;
+                            break;
+                        default:
+                            if (num_type.indexOf(Ftype.toLowerCase()) !== -1) props[element.name] = parseInt(element.value);
+                            else props[element.name] = element.value;
+                    }
+                }
+            }
+            let DataObj = window[userapp].Tasks[Taskid].Data; if (action === 'insert') DataObj.push(props); // Add New row.
+            GridViewRender(Taskid);
+            let AddOldValue = false; let JsnStr;
+            if (window[userapp].Tasks[Taskid] !== undefined) {
+                if (AddOldValue) {
+                    let ObjOldData = window[userapp].Tasks[Taskid]['DataOld'];
+                    JsnStr = JSON.stringify(Object.assign(props, ObjOldData));
+                } else JsnStr = JSON.stringify(props);
+            } else JsnStr = JSON.stringify(props);
+            return JsnStr;
+        }
+
+        function ElementsToObj(Taskid, Key = '') {
+            let { Tasks: { [Taskid]: { Data, Fields, rowid, elements } } } = window[userapp];
+            //let Elements = window[userapp].Tasks[Taskid]['elements'];
+            //let Data = window[userapp].Tasks[Taskid].Data;
+            if (elements === undefined) return; let props = {};
+            //let Fields = Taskid == '' ? null : window[userapp].Tasks[Taskid].Fields;
+            //props['AccessKey'] = Key; props['TokenKey'] = Taskid;
+            Object.entries(elements).forEach((entry, index) => {
+                const [key, element] = entry; index++;
+                if (element.type !== "submit" && element.name !== '') {
+                    let Ftype = Fields.find(el => el.name === element.name).type;
+                    if (Ftype == null || Ftype === undefined) Ftype = '';
+                    switch (Ftype.toLowerCase()) {
+                        case "boolean":
+                        case "bit":
+                            props[element.name + '.Old'] = element.value == 'on' ? 1 : 0;
+                            break;
+                        default:
+                            if (num_type.indexOf(Ftype.toLowerCase()) !== -1) props[element.name + '.Old'] = parseInt(element.value);
+                            else props[element.name + '.Old'] = element.value;
+                    }
+                }
+            });
+            //console.log(Data[rowid - 1]);
+            window[userapp].Tasks[Taskid]['DataOld'] = props; window[userapp].Tasks[Taskid]['DataRef'] = Data[rowid - 1];
+        }
+
+        function LocateRow(params, Data) {
+            let P = {}; Object.entries(params).filter((entry) => { let [key, value] = entry; if (key !== 'AccessKey' && key !== 'TokenKey') P[key.replace(".Old", "")] = value; }, {});
+            return Data.filter(function (entry) {
+                let match = 0;
+                Object.entries(entry).forEach(function (e) {
+                    let [k, v] = e;
+                    if (P[k] !== undefined) {
+                        let v1 = P[k] + ''; v1 = v1.rtrim();
+                        if (v1.includes(v.rtrim()) && v1) { match++; console.log(v1.rtrim() + ':' + v + ' match:' + match + ':' + Object.keys(P).length); }
+                    }
+                });
+                if (match >= Object.keys(P).length - 2) { return entry; }
+            });
+        }
+
+        function ElementToFormData(formid) {
+            const frm = document.getElementById(formid); if (!frm) return;
+            let fd = new FormData();
+            for (let element of frm.elements) {
+                if (element.type !== 'submit') {
+                    if (element.type == 'checkbox') fd.append(element.name, element.checked ? 1 : 0);
+                    else fd.append(element.name, element.value);
+                }
+            }
+            return fd;
+        }
+
+        function FindObjByToken(Obj, Tokenkey) {
+            for (let i = 0; i < Obj.length; i++) {
+                if (Obj[i].TokenKey === Tokenkey) return Obj[i];
+            }
+        }
+        function FindPropByValue(Obj, value) {
+            for (let prop in Obj) {
+                if (Obj.hasOwnProperty(prop)) { if (Obj[prop] === value) return prop; }
+            }
+        }
+
+        function CreateUIForm(Taskid) {
+            let IsSub = IsSubTask(Taskid); let frmid = Taskfrm(IsSub, Taskid);
+            let frm = document.getElementById(frmid); let SubContainer = 'PanelSub';
+            let SubTaskid = Taskid; let SubTaskCtl = window[userapp].Tasks[Taskid].TaskCtl;
+            const ContainerH = document.getElementById('LabelDetailH');
+            if (ContainerH !== undefined) ContainerH.innerHTML = '&nbsp;&#10065;&nbsp;' + SubTaskCtl.Description;
+            if (frm === undefined || frm == null) {
+                let my_form = document.createElement('FORM');
+                my_form.id = 'Task_form_' + Taskid; my_form.method = 'POST';
+                my_form.style.display = 'none';
+                document.body.appendChild(my_form);
+                if (!IsSub) {
+                    let MRow = document.getElementById('MRow');
+                    frm = document.getElementById('mg_frm').cloneNode(true); frm.id = frmid;
+                    frmdtl = document.getElementById('mg_frmdtl').cloneNode(true); frmdtl.id = frmid + 'dtl';
+                    my_form.appendChild(frmdtl);
+                    MRow.appendChild(frm);
+                    MRow.appendChild(my_form);
+                } else {
+                    let frmOrg = document.querySelector('.PanelSub').cloneNode(true);
+                    let MRowV = frmOrg.getElementsByClassName('MRowV')[0];
+                    let frmdtl = frmOrg.getElementsByClassName('mg_subfrmdtl')[0];
+                    frmOrg.id = SubContainer + '_' + SubTaskid;
+                    frmOrg.getElementsByClassName(SubContainer + 'H')[0].id = SubContainer + '_' + SubTaskid + '_H';
+                    frmOrg.getElementsByClassName('mg_subfrm')[0].id = frmid;
+                    frmOrg.getElementsByClassName('Taskid')[0].id = SubTaskid;
+                    frmdtl.id = frmid + 'dtl';
+                    my_form.appendChild(frmdtl);
+                    MRowV.id = 'MRowV_' + SubTaskid;
+                    MRowV.appendChild(my_form);
+                    let btClose = frmOrg.getElementsByClassName('btClose')[0]; btClose.addEventListener("click", function () { ClearUISubForm(SubContainer, SubTaskid); });
+                    let btclose = frmOrg.getElementsByClassName('btclose')[0]; btclose.addEventListener("click", function () { ClearUISubForm(SubContainer, SubTaskid); });
+                    let btCircle = frmOrg.getElementsByClassName('btCircle')[0]; btCircle.addEventListener("click", function () { EnableViewScr(SubTaskid); });
+                    frmOrg.style.display = 'block';
+                    document.body.appendChild(frmOrg);
+                    //Make the DIV element draggagle:
+                    dragElement(document.getElementById(SubContainer + '_' + SubTaskid));
+                }
+            } else if (IsSub) document.getElementById(SubContainer + '_' + SubTaskid).style.display = 'block';
+        }
+
+        function ClearUISubForm(SubContainer, SubTaskid) {
+            let SubCon = document.getElementById(SubContainer + '_' + SubTaskid);
+            SubCon.innerHTML = ''; SubCon.style.display = 'none'; SubCon.remove();
+        }
+
+        function ActiveForm(form, IsActive) {
+            let length = form.elements.length, i;
+            for (i = 0; i < length; i++) {
+                form.elements[i].disabled = IsActive;
+            }
+        }
+
+        function tempAlert(msg, duration, attribute = "position:absolute;top:30%;left:5%;background-color:white;") {
+            let el = document.createElement("div");
+            el.setAttribute("style", attribute); el.innerHTML = msg;
+            setTimeout(function () { el.parentNode.removeChild(el); }, duration); document.body.appendChild(el);
+        }
+
+        String.prototype.trim = function () { let trimmed = this.replace(/^\s+|\s+$/g, ''); return trimmed; }
+        String.prototype.ltrim = function () { let trimmed = this.replace(/^\s+/g, ''); return trimmed; }
+        String.prototype.rtrim = function () { let trimmed = this.replace(/\s+$/g, ''); return trimmed; }
+
+        function sort_by_key_ase(array, key) { return array.sort(function (a, b) { let x = a[key], y = b[key]; return ((x < y) ? -1 : ((x > y) ? 1 : 0)); }); }
+        function sort_by_key_des(array, key) { return array.sort(function (a, b) { let x = a[key], y = b[key]; return ((x > y) ? -1 : ((x < y) ? 1 : 0)); }); }
+        function callSort(Taskid, key) { sort_by_key_ase(window[userapp].Tasks[Taskid].Data, key); GridViewRender(Taskid); }
+        function findLongestWord(array, key) {
+            let longestWord = "";
+            try { array.forEach(function (a) { word = a[key]; if (word.length > longestWord.length) longestWord = word; }); } catch (e) { alert(e); }
+            return longestWord;
+        }
+        function FindValueInObject(obj, Fkey) {
+            if (obj === undefined) return;
+            return Object.entries(obj).find(([key, value]) => { if (key.toLowerCase() === Fkey.toLowerCase()) return value; });
+        }
+
+        function GridViewRender(Taskid) {
+            let { Tasks: { [Taskid]: { Data: ObjData, Fields, TaskCtl, TaskMode } } } = window[userapp];
+            //if (!Fields) ModelCreate(Taskid);
+            let elem = document.getElementById('Task_tb_' + Taskid); if (elem != undefined) elem.remove();
+            let IsSub = IsSubTask(Taskid);
+            let ele_Taskfrm = document.getElementById(Taskfrm(IsSub, Taskid)); ele_Taskfrm.innerHTML = "";
+            let table = document.createElement("table"); table.id = 'Task_tb_' + Taskid;   // CREATE DYNAMIC TABLE.
+            let tr = table.insertRow(-1); // TABLE ROW.  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+            for (let i = 0; i < Fields.length; i++) {
+                if (i == 0) {
+                    let th = document.createElement("th");      // Index.
+                    th.classList.add(IsSub ? "th-H-pop" : "th-H");
+                    th.classList.add('th-C'); th.classList.add('th-HC');
+                    let tLabel = document.createElement('LABEL');
+                    tLabel.id = Fields[i].name; tLabel.innerHTML = '#';
+                    th.appendChild(tLabel); tr.appendChild(th);
+                }
+                if ((TaskMode == 'create') ? true : !Fields[i].disable) {
+                    let th = document.createElement("th");      // TABLE HEADER.
+                    th.classList.add(IsSub ? "th-H-pop" : "th-H"); if (i == 0) { th.classList.add('th-C'); th.classList.add('th-HC'); }
+                    let tLabel = document.createElement('LABEL');
+                    tLabel.id = Fields[i].name;
+                    tLabel.innerHTML = Fields[i].description !== undefined ? Fields[i].description : Fields[i].name;
+                    tLabel.addEventListener("dblclick", function () { callSort(Taskid, this.id); });
+                    th.appendChild(tLabel); tr.appendChild(th);
+                }
+            }
+            // ADD JSON DATA TO THE TABLE AS ROWS.
+            for (let i = 0; i < ObjData.length; i++) {
+                for (let j = 0; j < Fields.length; j++) {
+                    if (j == 0) {
+                        tr = table.insertRow(-1);
+                        let tabCell = tr.insertCell(-1);
+                        let tBox = document.createElement('input');
+                        tBox.id = 'index_N' + i; tBox.name = 'index';
+                        tBox.setAttribute("autofocus", true); tBox.setAttribute("autocomplete", "off");
+                        tBox.classList.add("IndexTb"); tBox.setAttribute('value', (i + 1) + '');
+                        tBox.readOnly = true;
+                        tBox.width = "2.5%";
+                        tBox.style.minWidth = "18px";
+                        tabCell.width = "2.5%";
+                        tabCell.style.minWidth = "18px";
+                        tabCell.appendChild(tBox);
+                        tabCell.addEventListener('click', function () { window[userapp].Tasks[Taskid]['rowid'] = this.parentNode.rowIndex; SelectRow(Taskid); });
+                    }
+                    if ((TaskMode == 'create') ? true : !Fields[j].disable) {
+                        let LinkProps = {}; fParam = Fields[j].name.toLowerCase(); // ** window[userapp].TaskExecute.LinkSubTasks;
+                        if (TaskCtl !== undefined) {
+                            let LinkSubTasks = TaskCtl.LinkSubTasks;
+                            for (let i = 0; i < LinkSubTasks.length; i++) {
+                                let fArgument = LinkSubTasks[i].LinkFields.toLowerCase(); if (fArgument === fParam) LinkProps = LinkSubTasks[i];
+                            }
+                        }
+                        let tabCell = tr.insertCell(-1); DataValue = ObjData[i][Fields[j].name];
+                        if (typeof DataValue === 'string' || DataValue instanceof String) DataValue = DataValue.rtrim(); // Check DataValue === 'string'
+                        if (j === 0) tabCell.classList.add('th-C');
+                        tabCell.addEventListener('click', function () { window[userapp].Tasks[Taskid]['rowid'] = this.parentNode.rowIndex; SelectRow(Taskid); });
+                        let ftype = Fields[j].type.toLowerCase()
+                        switch (ftype) {
+                            case "boolean":
+                            case "bit":
+                                let tcheck = document.createElement('input');
+                                tcheck.type = "checkbox"; tcheck.checked = DataValue;
+                                tcheck.id = Fields[j].name + '_N' + i; tcheck.name = Fields[j].name;
+                                if (!tcheck.value) tcheck.defaultValue = false;
+                                tcheck.classList.add("DataValueCkb");
+                                tcheck.disabled = true;
+                                tabCell.appendChild(tcheck);
+                                break;
+                            default:
+                                if (Fields[j].maxlength >= 40) {
+                                    let tArea = document.createElement('textarea');
+                                    tArea.id = Fields[j].name + '_N' + i; tArea.name = Fields[j].name;
+                                    tArea.cols = Fields[j].maxlength >= 100 ? '40' : '28';
+                                    tArea.rows = '1'; tArea.style.overflow = 'hidden';
+                                    tArea.setAttribute("autofocus", true); tArea.setAttribute("autocomplete", "off");
+                                    tArea.classList.add("DataValueTa");
+                                    tArea.innerHTML = DataValue;
+                                    tArea.readOnly = true;
+                                    if (LinkProps !== undefined && Object.keys(LinkProps).length !== 0) {
+                                        tArea.classList.add("DataLink");
+                                        tArea.addEventListener("dblclick", function () { CallSubTask(LinkProps.LinkUrl, this.value); });
+                                    }
+                                    tabCell.appendChild(tArea);
+                                } else {
+                                    let tBox = document.createElement('input');
+                                    tBox.id = Fields[j].name + '_N' + i; tBox.name = Fields[j].name;
+                                    tBox.setAttribute("autofocus", true); tBox.setAttribute("autocomplete", "off");
+                                    tBox.classList.add("DataValueTb"); tBox.setAttribute('value', DataValue);
+                                    if (tBox.value.toLowerCase() === 'null') tBox.defaultValue = "";
+                                    if (ftype.toLowerCase() === 'datetime' || ftype.toLowerCase() === 'date') {
+                                        tBox.setAttribute('value', !DataValue ? '1901-01-01' : DataValue.substring(0, 10));
+                                        tBox.setAttribute('type', 'date');
+                                    }
+                                    else if (num_type.find(e => e == ftype)) { tBox.setAttribute('type', 'number'); if (tBox.value == '') tBox.defaultValue = 0; }
+                                    else tBox.setAttribute('type', 'text');
+                                    tBox.readOnly = true;
+                                    if (TaskMode != 'create' && LinkProps !== undefined && Object.keys(LinkProps).length !== 0) {
+                                        tBox.classList.add("DataLink");
+                                        tBox.addEventListener("dblclick", function () { CallSubTask(LinkProps.LinkUrl, this.value); });
+                                    }
+                                    tabCell.appendChild(tBox);
+                                }
+                        }
+                    }
+                }
+            }
+            ele_Taskfrm.appendChild(table); ele_Taskfrm.style.display = 'block'; myLoadEnd();
+        }
+
+        function CallSubTask(Taskid, QueryStr) {
+            if (!Taskid || Taskid === undefined) return;
+            if (window[userapp].SubTasks !== null && window[userapp].SubTasks !== undefined) window[userapp].SubTasks.add(Taskid);
+            window[userapp].TaskAdd(Taskid);  // ** Create SubTask in Prgrams repository (window[userapp].Tasks).
+            let SubTaskUrl = window[userapp].domain_url('getdata', Taskid) + '/' + QueryStr;
+            dom.ele_SubUrl.value = SubTaskUrl;
+            BuildTask(Taskid, SubTaskUrl, '', 'query');
+        }
+
+        function EnableViewScr(Taskid, AddNew) {
+            let IsSub = IsSubTask(Taskid);
+            let Container = Taskfrm(IsSub, Taskid);
+            const ele_col1 = document.getElementById(Container);
+            if (ele_col1 == null || ele_col1 == undefined) return;
+            const ele_col2 = document.getElementById(Container + 'dtl');
+            const ele_frm = document.getElementById('Task_form_' + Taskid);
+            if (!AddNew && ele_col2.style.display == 'block') { // Hide Form View.
+                ele_col1.classList.remove('columnL'); ele_col2.classList.remove('columnR');
+                ele_col1.className += ' column'; ele_col2.className += ' columnH';
+                ele_col2.style.display = 'none'; ele_frm.style.display = 'none';
+            } else if (AddNew || ele_col2.style.display != 'block') { // Show Form View.
+                ele_col1.classList.remove('column'); ele_col2.classList.remove('columnH');
+                ele_col1.className += ' columnL'; ele_col2.className += ' columnR';
+                ele_col2.style.display = 'block'; ele_frm.style.display = 'block';
+                SelectRow(Taskid, AddNew);
+            }
+        }
+
+        function SelectRow(Taskid, AddNew) {
+            if (Taskid === undefined) return;
+            let rowIndex = parseInt(window[userapp].Tasks[Taskid]['rowid']);
+            if (rowIndex === undefined || !rowIndex || isNaN(rowIndex)) { window[userapp].Tasks[Taskid]['rowid'] = 1; rowIndex = 1; }
+            let ele_table = document.getElementById('Task_tb_' + Taskid);
+            if (ele_table === undefined || ele_table == null) return;
+            let rowsNotSelected = ele_table.getElementsByTagName('tr');
+            for (let row = 0; row < rowsNotSelected.length; row++) {
+                rowsNotSelected[row].classList.remove('selected');
+            }
+            let rowSelected = ele_table.getElementsByTagName('tr')[rowIndex];
+            if (rowSelected !== undefined) rowSelected.className += ' selected';
+            SelectElements(Taskid);
+            UIFormViewRender(Taskid, AddNew)
+        }
+
+        function isEmpty(obj) { if (Object.keys(obj).length === 0 && obj.constructor === Object) return true; };
+
+        function SelectElements(Taskid) {
+            let { Tasks: { [Taskid]: { TaskMode, rowid, newelements } } } = window[userapp];
+            if (Taskid === undefined) return;
+            let ele_table = document.getElementById('Task_tb_' + Taskid);
+            let rowSelected = ele_table.getElementsByTagName('tr')[rowid]; let elements = {};
+            //if (TaskMode == 'create') ele_table.deleteRow(1);
+            for (let i = 0; i < rowSelected.cells.length; i++) {  // Clone from Select row.
+                let Ele = rowSelected.cells[i].firstChild;
+                if (Ele.name !== 'index') {
+                    let eleNew = Ele.cloneNode(true);
+                    eleNew.id = ''; elements[Ele.name] = eleNew;
+                }
+            }
+            if (TaskMode == 'create' && isEmpty(newelements)) window[userapp].Tasks[Taskid]['newelements'] = CloneObjEle(elements); // Store Org.NewRow.
+            window[userapp].Tasks[Taskid]['elements'] = elements;
+            if (TaskMode != 'create') ElementsToObj(Taskid); // Store OldValue for post
+        }
+
+        function CloneObjEle(elements) {
+            let newobj = {}; // Clone from element object.
+            Object.entries(elements).forEach((entry, index) => {
+                const [key, Ele] = entry; let eleNew = Ele.cloneNode(true);
+                eleNew.id = ''; newobj[Ele.name] = eleNew;
+            }); return newobj;
+        }
+
+        function UIFormViewRender(Taskid, AddNew = false) {
+            let { Accesskey, Tasks: { [Taskid]: { Fields, TaskCtl, readonly, TaskMode, elements, newelements } } } = window[userapp];
+            let Elements = (AddNew) ? CloneObjEle(newelements) : elements; if (Elements === undefined) return;
+            let elem = document.getElementById('Table_' + Taskid); if (elem != undefined) elem.remove();
+            let IsSub = IsSubTask(Taskid);
+            const Container = document.getElementById(Taskfrm(IsSub, Taskid) + 'dtl');
+            if (Container !== undefined) {
+                Container.innerHTML = "";
+                let table = document.createElement('table'); table.id = 'Table_' + Taskid;
+                let thead = document.createElement('thead');
+                let tbody = document.createElement('tbody');
+                let theadTh = document.createElement('th'); theadTh.setAttribute('colspan', '2'); // ---Table Header---
+                theadTh.style = 'font:11px tahoma;font-weight:bold;border-color:transparent;padding:0px;border:0px;overflow:hidden;';//overflow-wrap:break-word;';
+                let theadThl = document.createElement('div'); theadThl.style = 'border-color:transparent;padding:0px;border:0px;float:left;width:60%;'
+                theadThl.innerHTML = '&nbsp;&#10065;&nbsp;&nbsp;' + ((TaskMode == 'create') ? 'Insert &#10146;' : '') + TaskCtl.Description;
+                theadTh.appendChild(theadThl);
+                if (!(TaskMode == 'create') && !readonly) {
+                    let theadThr = document.createElement('div'); theadThr.style = 'border-color:transparent;padding:0px;border:0px;'; theadThr.style.textAlign = 'right';
+                    let btDel = document.createElement('input');
+                    btDel.type = 'button'; btDel.className += 'danger'; btDel.value = 'Delete';
+                    btDel.addEventListener("click", function () { let Return = confirm('Are you sure you want to delete?'); if (Return) ajaxpost('Task_form_' + Taskid, Accesskey, 'delete', Taskid, true); });
+                    theadThr.appendChild(btDel);
+                    theadTh.appendChild(theadThr);
+                }
+                thead.appendChild(theadTh); table.appendChild(thead);
+                let tTr = document.createElement('tr'); let Findex = 0;  // ---Table Body---
+                tTr = table.insertRow(-1);
+                Object.entries(Elements).forEach((entry, index) => {
+                    const [key, Ele] = entry; let F = Fields.find(e => e.name == key);
+                    if ((TaskMode == 'create') ? true : !F.disable) {
+                        let tTd = document.createElement('td');
+                        tTd.style = 'border-color:transparent;padding:2px;border:0px;'; tTd.style.height = '25%';
+                        if (F.primary) Ele.style = 'border: 2px solid #FFE4E1;';
+
+                        tTd.setAttribute("valign", "top");
+                        Findex++;
+                        switch (Ele.type) {
+                            case 'checkbox':
+                                Ele.classList.remove('DataValueCkb'); Ele.className = 'DataValueCkbV';
+                                Ele.disabled = TaskMode == 'create' ? false : (F.readonly || F.primary);
+                                break;
+                            case 'textarea':
+                                Ele.classList.remove('DataValueTa'); Ele.className = 'DataValueTaV';
+                                Ele.readOnly = TaskMode == 'create' ? false : (F.readonly || F.primary);
+                                break;
+                            default:
+                                Ele.classList.remove('DataValueTb'); Ele.className = 'DataValueTbV';
+                                Ele.readOnly = TaskMode == 'create' ? false : (F.readonly || F.primary);
+                                break;
+                        }
+                        let lable = document.createElement('label');
+                        lable.className = "LbV"; lable.innerText = F.description !== undefined ? F.description : key;
+                        Ele.id = Ele.name + '_v';
+                        tTd.appendChild(lable); tTd.appendChild(Ele);
+                        tTr.appendChild(tTd);
+                        if (Findex % 2 == 0) tTr = table.insertRow(-1);
+                    }
+                });
+                let tFootTr = document.createElement('tr'), tFootTh = document.createElement('th'); // ---Table Footer---
+                tFootTr.className = 'th-F'; tFootTh.innerHTML += '&nbsp;&nbsp;';
+                if (!readonly) {
+                    let btSubmit = document.createElement('input');
+                    btSubmit.type = 'button'; btSubmit.className += 'success'; btSubmit.value = 'Submit';
+                    btSubmit.addEventListener("click", function () {
+                        let Return = confirm('Are you sure you want to Save?');
+                        if (Return) ajaxpost('Task_form_' + Taskid, Accesskey, TaskMode == 'create' ? 'insert' : 'update', Taskid, true);
+                    });
+                    tFootTh.appendChild(btSubmit);
+                }
+                tFootTh.className = 'th-F'; tFootTh.setAttribute('colspan', '2'); tFootTh.style.textAlign = 'right';
+                tFootTr.appendChild(tFootTh);
+                tbody.appendChild(tFootTr);
+                table.appendChild(tbody);
+                table.style.width = '100%'; table.style.marginLeft = '2px';
+                Container.appendChild(table);
+            }
+            //console.clear();
+        }
+
+        function ShowFooter() {
+            if (dom.ele_ConFooter.style.display === 'none') dom.ele_ConFooter.style.display = 'block';
+            else dom.ele_ConFooter.style.display = 'none';
+        }
+        function myLoadEnd() { document.body.style.cursor = 'default'; document.getElementById("page").style.display = "block"; document.getElementById("loading").style.display = "none"; }
+        function myLoad() { document.body.style.cursor = 'wait'; document.getElementById("loading").style.display = "block"; document.getElementById("page").style.display = "none"; }
+        function openNav() { document.getElementById("mySidepanel").style.width = "220px"; }
+        function closeNav() { document.getElementById("mySidepanel").style.width = "0"; }
+
+        function dragElement(elmnt) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (elmnt != null) {
+                let H = document.getElementById(elmnt.id + "_H");
+                if (H != null && H) H.onmousedown = dragMouseDown;  /* if present, the header is where you move the DIV from:*/
+                else elmnt.onmousedown = dragMouseDown; /* otherwise, move the DIV from anywhere inside the DIV:*/
+            }
+            var Getarray_store = document.getElementById("hdd_array_store");
+            function UpdateArray(array_store) {
+                let arr;
+                if (array_store.value === "") arr = new Array();
+                else arr = array_store.value.split(",");
+                array_store.value = arr.join(",");  //arr.push((arr.length + 1).toString());
+            };
+            function dragMouseDown(e) {
+                e = e || window.event; e.preventDefault();
+                pos3 = e.clientX; pos4 = e.clientY; // get the mouse cursor position at startup:
+                document.onmouseup = closeDragElement; document.onmousemove = elementDrag;  // call a function whenever the cursor moves:
+            }
+            function elementDrag(e) {
+                e = e || window.event; e.preventDefault();
+                pos1 = pos3 - e.clientX; pos2 = pos4 - e.clientY; // calculate the new cursor position:
+                pos3 = e.clientX; pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";  // set the element's new position:
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                // Display position on page.
+                if (Getarray_store != null) {
+                    Getarray_store.value = elmnt.style.top + "," + elmnt.style.left;
+                    UpdateArray(Getarray_store);
+                    let DivMsg = document.getElementById("DivMsg");
+                    if (DivMsg != null) DivMsg.innerHTML = Getarray_store.value;
+                }
+            }
+            function closeDragElement() { document.onmouseup = null; document.onmousemove = null; } /* stop moving when mouse button is released:*/
+        }
+    </script>
+</body>
+
+</html>
